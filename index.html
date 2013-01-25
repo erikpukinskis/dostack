@@ -9,6 +9,10 @@
 </head>
 
 <body ng-app="doStackApp" ng-controller="AppCtrl">
-  {{items}}
+  <ul>
+    <li ng-repeat="item in items">
+      <input type="checkbox" ng-model="item.done">{{item.text}}
+    </li>
+  </ul>
 </body>
 </html>
