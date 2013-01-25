@@ -8,4 +8,9 @@ doStackApp.controller('AppCtrl', function($scope) {
 
   $scope.items = items;
 
+  $scope.remaining = function() {
+    return _.reduce(items, function(count, item) {
+      return count + (item.done ? 0 : 1);
+    }, 0);
+  }
 });
