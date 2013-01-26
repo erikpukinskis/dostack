@@ -5,4 +5,16 @@ body {
 
 .do {
   list-style-type: none;
+
+  &.checked {
+    text-decoration: line-through;
+  }
+
+  .tools {
+    display: none;
+  }
+}
+
+.do:hover .tools {
+  display: inline;
 }

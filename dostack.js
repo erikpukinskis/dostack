@@ -1,4 +1,4 @@
-doStackApp = angular.module('doStackApp', ['ngResource']);
+doStackApp = angular.module('doStackApp', ['ngResource', 'filters']);
 
 doStackApp.controller('AppCtrl', function AppCtrl($scope, $location, doStackStorage, filterFilter) {
   var items = $scope.items = doStackStorage.get();
@@ -13,11 +13,16 @@ doStackApp.controller('AppCtrl', function AppCtrl($scope, $location, doStackStor
     }, 0);
   }
 
-  $scope.add = function(newItem) {
-    var item = {text: newItem.text, done: false};
+  $scope.add = function(input) {
+    var item = {text: input.text, done: false};
     items.push(item);
-    newItem.text = '';
+    input.text = '';
   };
+
+  $scope.remove = function(index) {
+    var item = items.splice(index, 1)[0];
+    item.$delete();
+  }
 });
 
 doStackApp.factory( 'doStackStorage', function() {
@@ -32,4 +37,12 @@ doStackApp.factory( 'doStackStorage', function() {
       localStorage.setItem(STORAGE_ID, JSON.stringify(items));
     }
   };
+});
+
+angular.module('filters', []).filter('then', function () {
+  return function (expr,output) {
+    if (expr) {
+      return output;
+    }
+  }
 });

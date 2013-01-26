@@ -10,16 +10,20 @@
   </head>
   <body ng-app='doStackApp' ng-controller='AppCtrl'>
     <h1>Dostack</h1>
-    Remaining {{remaining()}} of {{items.length}}
     <form class='form-inline'>
       <input ng-model='newItem.text' type='text' />
       <button class='btn btn-primary' ng-click='add(newItem)' ng-disabled='!newItem.text'>Add</button>
     </form>
     <ul>
-      <li class='do' ng-repeat='item in items'>
+      <li class="do {{item.done|then:'checked'}}" ng-repeat='item in items'>
         <label class='checkbox'>
           <input ng-model='item.done' type='checkbox' />
           {{item.text}}
+          <div class='tools'>
+            <a ng-click='remove($index)'>
+              <i class='icon-trash'></i>
+            </a>
+          </div>
         </label>
       </li>
     </ul>

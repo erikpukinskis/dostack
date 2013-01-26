@@ -4,3 +4,10 @@ body {
 
 .do {
   list-style-type: none; }
+  .do.checked {
+    text-decoration: line-through; }
+  .do .tools {
+    display: none; }
+
+.do:hover .tools {
+  display: inline; }

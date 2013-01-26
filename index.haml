@@ -10,12 +10,14 @@
 
   %body{"ng-app" => "doStackApp", "ng-controller" => "AppCtrl"}
     %h1 Dostack
-    Remaining {{remaining()}} of {{items.length}}
     %form.form-inline
       %input{:type => "text", "ng-model" => "newItem.text"}
       %button.btn.btn-primary{"ng-click" => "add(newItem)", "ng-disabled" => "!newItem.text"} Add
     %ul
-      %li.do{"ng-repeat" => "item in items"}
+      %li.do{"ng-repeat" => "item in items", :class => "{{item.done|then:'checked'}}"}
         %label{:class => "checkbox"}
           %input{:type => "checkbox", "ng-model" => "item.done"}
           {{item.text}}
+          .tools            
+            %a{"ng-click" => "remove($index)"} 
+              %i{:class => "icon-trash"}
