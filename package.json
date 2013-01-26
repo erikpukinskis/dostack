@@ -1,0 +1,11 @@
+{
+    "name": "Dostack",
+    "description": "Todo app in Angular.js with localStorage.",
+    "keywords": [],
+    "homepage": "https://github.com/erikpukinskis/dostack",
+    "dependencies": {
+        "express": "*"
+    },
+    "author": "Erik Pukinskis <erik@snowedin.net>",
+    "version": "0.0.9"
+}
