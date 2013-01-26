@@ -19,6 +19,7 @@
         <label class='checkbox'>
           <input ng-model='item.done' type='checkbox' />
           {{item.text}}
+          <div class='sessions' style='width: {{item.sessions*16}}px'></div>
           <div class='timer'>{{item|timer}}</div>
           <div class='tools'>
             <a ng-click='remove($index)'>

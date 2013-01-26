@@ -28,7 +28,14 @@ doStackApp.controller('AppCtrl', function AppCtrl($scope, $location, doStackStor
     item.started = new Date();
   }
 
+  $scope.alerts = function() {
+    _.each(items, function(item) {
+      item.checkForFinish();
+    });
+  }
+
   setInterval(function() {
+    $scope.alerts();
     $scope.$apply();
   }, 1000)
 });
@@ -68,13 +75,19 @@ angular.module('filters', [])
         return seconds >= 60 ? minutes + "m" : seconds + "s";
       }
     }
-  });
+  })
+  .filter('times', function() {
+    return function(count,output) {
+      return Array(count+1).join(output);
+    }
+  })
 
   function Item(attrs) {
-    this.keys = ['text', 'done', 'started'];
+    this.keys = ['text', 'done', 'started', 'sessions'];
+    var defaults = {done: false, sessions: 0};
     var item = this;
     _.each(this.keys, function(key) {
-      var value = attrs[key];
+      var value = attrs[key] || defaults[key];
       if (key == 'started' && typeof attrs[key] == 'string') {
         value = new Date(value);
       }
@@ -83,11 +96,20 @@ angular.module('filters', [])
   }
 
   Item.prototype.duration = function() {
+    if (!this.started) { return null; }
     return Math.floor((new Date() - this.started) / 1000)
   }
 
   Item.prototype.isFinished = function() {
-    return this.duration() >= 25 * 60;
+    return this.duration() >= 10;
+  }
+
+  Item.prototype.checkForFinish = function() {
+      if(this.isFinished()) {
+        alert("Stop working on " + this.text + "!");
+        this.started = null;
+        this.sessions++;
+      }    
   }
 
   Item.prototype.asHash = function() {

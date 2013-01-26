@@ -22,6 +22,12 @@ body {
     border-radius: 2px;
   }
 
+  .sessions {
+    background-image: url(check.png);
+    display: inline-block;
+    height: 16px;
+  }
+
   &.started .timer {
     display: inline;
   }

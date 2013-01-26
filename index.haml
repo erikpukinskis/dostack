@@ -19,6 +19,7 @@
         %label{:class => "checkbox"}
           %input{:type => "checkbox", "ng-model" => "item.done"}
           {{item.text}}
+          .sessions{:style => "width: {{item.sessions*16}}px"}
           .timer {{item|timer}}
           .tools
             %a{"ng-click" => "remove($index)"} 
