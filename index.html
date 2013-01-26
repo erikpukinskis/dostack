@@ -9,7 +9,12 @@
     <script src='dostack.js'></script>
   </head>
   <body ng-app='doStackApp' ng-controller='AppCtrl'>
+    <h1>Dostack</h1>
     Remaining {{remaining()}} of {{items.length}}
+    <form class='form-inline'>
+      <input ng-model='newItem.text' type='text' />
+      <button class='btn btn-primary' ng-click='add(newItem)' ng-disabled='!newItem.text'>Add</button>
+    </form>
     <ul>
       <li class='do' ng-repeat='item in items'>
         <label class='checkbox'>
