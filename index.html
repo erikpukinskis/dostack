@@ -15,13 +15,17 @@
       <button class='btn btn-primary' ng-click='add(newItem)' ng-disabled='!newItem.text'>Add</button>
     </form>
     <ul>
-      <li class="do {{item.done|then:'checked'}}" ng-repeat='item in items'>
+      <li class="do {{item.done|then:'checked'}} {{item.started|then:'started'}}" ng-repeat='item in items'>
         <label class='checkbox'>
           <input ng-model='item.done' type='checkbox' />
           {{item.text}}
+          <div class='timer'>{{item|timer}}</div>
           <div class='tools'>
             <a ng-click='remove($index)'>
               <i class='icon-trash'></i>
+            </a>
+            <a ng-click='start($index)'>
+              <i class='icon-time'></i>
             </a>
           </div>
         </label>

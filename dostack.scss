@@ -13,8 +13,24 @@ body {
   .tools {
     display: none;
   }
-}
 
-.do:hover .tools {
-  display: inline;
+  .timer {
+    display: none;
+    background-color: aqua;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+
+  &.started .timer {
+    display: inline;
+  }
+
+  .bind {
+    display: inline;
+  }
+
+  &:hover .tools {
+    display: inline;
+  }
 }

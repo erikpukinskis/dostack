@@ -20,9 +20,17 @@ doStackApp.controller('AppCtrl', function AppCtrl($scope, $location, doStackStor
   };
 
   $scope.remove = function(index) {
-    var item = items.splice(index, 1)[0];
-    item.$delete();
+    items.splice(index, 1)[0];
   }
+
+  $scope.start = function(index) {
+    var item = items[index];
+    item.started = new Date();
+  }
+
+  setInterval(function() {
+    $scope.$apply();
+  }, 1000)
 });
 
 doStackApp.factory( 'doStackStorage', function() {
@@ -30,7 +38,13 @@ doStackApp.factory( 'doStackStorage', function() {
 
   return {
     get: function() {
-      return JSON.parse(localStorage.getItem(STORAGE_ID) || '[]');
+      var items = JSON.parse(localStorage.getItem(STORAGE_ID) || '[]');
+      for(var i in items) {
+        if (items[i].started) {
+          items[i].started = new Date(items[i].started);
+        }
+      }
+      return items;
     },
 
     put: function( items ) {
@@ -39,10 +53,20 @@ doStackApp.factory( 'doStackStorage', function() {
   };
 });
 
-angular.module('filters', []).filter('then', function () {
-  return function (expr,output) {
-    if (expr) {
-      return output;
+angular.module('filters', [])
+  .filter('then', function () {
+    return function (expr,output) {
+      if (expr) {
+        return output;
+      }
     }
-  }
-});
+  })
+  .filter('timer', function () {
+    return function(item) {
+      if(item.started) {
+        var seconds = Math.floor((new Date() - item.started) / 1000);
+        var minutes = Math.floor(seconds / 60);
+        return seconds >= 60 ? minutes + "m" : seconds + "s";
+      }
+    }
+  });

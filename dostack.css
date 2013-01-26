@@ -8,6 +8,15 @@ body {
     text-decoration: line-through; }
   .do .tools {
     display: none; }
-
-.do:hover .tools {
-  display: inline; }
+  .do .timer {
+    display: none;
+    background-color: aqua;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 2px; }
+  .do.started .timer {
+    display: inline; }
+  .do .bind {
+    display: inline; }
+  .do:hover .tools {
+    display: inline; }
